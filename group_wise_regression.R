@@ -1,7 +1,8 @@
 
 
-# Function to perform regression and return results as a data frame
-group_wise_regression <- function(df, group_col, x_col, y_col) {
+
+# Function to perform regression with multiple predictors and return results as a data frame
+group_wise_regression <- function(df, group_col, predictors, response) {
   # Create an empty list to store results
   results_list <- list()
   
@@ -11,7 +12,9 @@ group_wise_regression <- function(df, group_col, x_col, y_col) {
   # Loop over each group and fit the model
   for (group in groups) {
     df_group <- df[df[[group_col]] == group, ]
-    model <- lm(as.formula(paste(y_col, "~", x_col)), data = df_group)
+    # Create the regression formula
+    formula <- as.formula(paste(response, "~", paste(predictors, collapse = " + ")))
+    model <- lm(formula, data = df_group)
     
     # Extract results and convert them to a data frame
     results_df <- data.frame(
@@ -34,5 +37,4 @@ group_wise_regression <- function(df, group_col, x_col, y_col) {
   rownames(final_results_df) <- NULL
   
   return(final_results_df)
-
 }
