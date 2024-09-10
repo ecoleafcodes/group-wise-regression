@@ -4,6 +4,21 @@
 
 This repository contains a function and example script for performing linear regression on grouped data. The function `group_wise_regression` fits a linear model to each group within a dataset and returns the results as a data frame.
 
+## Usage example
+
+``` r {}
+source("group_wise_regression.R")
+
+# Load your data
+input_df <- read.csv("path/to/your_data_file.csv", header = TRUE)
+
+# Run the group-wise regression
+results_df <- group_wise_regression(input_df, "group", "x", "y")
+
+# Print the results
+print(results_df)
+```
+
 ## Function: `group_wise_regression`
 
 ### Description
